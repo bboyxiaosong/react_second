@@ -1,5 +1,5 @@
 import React ,{ Component } from 'react';
-import store from './store';
+// import store from './store';
 /**
  * 第二个核心api  connect 让todolist 与store 做连接
  * 怎么连接呢通过connect 方法因为
@@ -11,34 +11,54 @@ import store from './store';
 import { connect } from 'react-redux';
 
 
-
-class TodoList extends Component{
-    constructor(props){
-        super(props);
-        // this.state = store.getState();
-        // console.log(this.state)
-    }
-    render(){
-        return (
+const TodoList = (props)=>{
+    const { inputValue }  = props;
+    return (
+        <div>
             <div>
-                <div>
-                    <input value={this.props.inputValue} onChange={this.handleInputChange.bind(this)}/>
-                    <button onClick={this.handleClick.bind(this)}>提交</button>
-                </div>
-                <ul>
-                    <li>
-                        Dell
-                    </li> 
-                </ul>
+                <input value={inputValue} onChange={props.handleInputChange}/>
+                <button onClick={props.handleClick}>提交</button>
             </div>
-        )
-       
-    }
-    handleClick(){
-        console.log('w')
-    }
-    
+            <ul>
+               {
+                   props.list.map((item,index)=>{
+
+                    return <li onClick={props.handleDelete} key={index}>{item}</li>
+
+               })
+               }
+            </ul>
+        </div>
+    )
 }
+// 因为仅仅是 ui组件可以替换成上面的
+// class TodoList extends Component{
+//     constructor(props){
+//         super(props);
+//         // this.state = store.getState();
+//         // console.log(this.state)
+//     }
+//     render(){
+//         // 下面这仅仅UI组件了
+//         const { inputValue }  = this.props;
+//         return (
+//             <div>
+//                 <div>
+//                     <input value={inputValue} onChange={this.props.handleInputChange}/>
+//                     <button onClick={this.props.handleClick}>提交</button>
+//                 </div>
+//                 <ul>
+//                    {
+//                        props.list.map((item,index)=>{
+
+//                         return <li onClick={this.props.handleDelete} key={index}>{item}</li>
+//                    })
+//                    }
+//                 </ul>
+//             </div>
+//         )
+//     }
+// }
 // export default TodoList;
 /** 
  * 衍生出一个放
@@ -49,7 +69,8 @@ class TodoList extends Component{
 */
 const mapStateToProps = (state)=>{
     return {
-        inputValue:state.inputValue
+        inputValue:state.inputValue,
+        list:state.list
     }
 }
 /**
@@ -67,7 +88,21 @@ const mapDispatchToProps = (dispatch)=>{
                 value:e.target.value
             }
             dispatch(action);
+        },
+        handleClick(){
+            const action = {
+                type:'add_item',
+            }
+            dispatch(action);
+        },
+        handleDelete(index){
+            const action = {
+                type:'delete_item',
+                index:index
+            }
+            dispatch(action);
         }
+        
     }
 
 }
