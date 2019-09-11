@@ -21,8 +21,7 @@ const TodoList = (props)=>{
             </div>
             <ul>
                {
-                   props.list.map((item,index)=>{
-
+                    props.list.map((item,index)=>{
                     return <li onClick={()=>{props.handleDelete(index)}} key={index}>{item}</li>
 
                })
