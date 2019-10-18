@@ -62,9 +62,8 @@ const TodoList = (props)=>{
 /** 
  * 衍生出一个放
  * 把store 里边的数据映射到这个组件里边;
- * 
  * store 里边的数据会映射到这个组件的props上面
- * 
+ * state呢就是store里的数据
 */
 const mapStateToProps = (state)=>{
     return {
