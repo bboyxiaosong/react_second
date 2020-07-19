@@ -11,53 +11,53 @@ import React ,{ Component } from 'react';
 import { connect } from 'react-redux';
 
 
-const TodoList = (props)=>{
-    const { inputValue }  = props;
-    return (
-        <div>
-            <div>
-                <input value={inputValue} onChange={props.handleInputChange}/>
-                <button onClick={props.handleClick}>提交</button>
-            </div>
-            <ul>
-               {
-                    props.list.map((item,index)=>{
-                    return <li onClick={()=>{props.handleDelete(index)}} key={index}>{item}</li>
-
-               })
-               }
-            </ul>
-        </div>
-    )
-}
-// 因为仅仅是 ui组件可以替换成上面的
-// class TodoList extends Component{
-//     constructor(props){
-//         super(props);
-//         // this.state = store.getState();
-//         // console.log(this.state)
-//     }
-//     render(){
-//         // 下面这仅仅UI组件了
-//         const { inputValue }  = this.props;
-//         return (
+// const TodoList = (props)=>{
+//     const { inputValue }  = props;
+//     return (
+//         <div>
 //             <div>
-//                 <div>
-//                     <input value={inputValue} onChange={this.props.handleInputChange}/>
-//                     <button onClick={this.props.handleClick}>提交</button>
-//                 </div>
-//                 <ul>
-//                    {
-//                        props.list.map((item,index)=>{
-
-//                         return <li onClick={this.props.handleDelete} key={index}>{item}</li>
-//                    })
-//                    }
-//                 </ul>
+//                 <input value={inputValue} onChange={props.handleInputChange}/>
+//                 <button onClick={props.handleClick}>提交</button>
 //             </div>
-//         )
-//     }
+//             <ul>
+//                {
+//                     props.list.map((item,index)=>{
+//                     return <li onClick={()=>{props.handleDelete(index)}} key={index}>{item}</li>
+
+//                })
+//                }
+//             </ul>
+//         </div>
+//     )
 // }
+// 因为仅仅是 ui组件可以替换成上面的
+class TodoList extends Component{
+    // constructor(props){
+    //     super(props);
+    //     // this.state = store.getState();
+    //     // console.log(this.state)
+    // }
+    render(){
+        // 下面这仅仅UI组件了
+        const { inputValue }  = this.props;
+        return (
+            <div>
+                <div>
+                    <input value={inputValue} onChange={this.props.handleInputChange}/>
+                    <button onClick={this.props.handleClick}>提交</button>
+                </div>
+                <ul>
+                   {
+                       this.props.list.map((item,index)=>{
+
+                        return <li onClick={this.props.handleDelete} key={index}>{item}</li>
+                   })
+                   }
+                </ul>
+            </div>
+        )
+    }
+}
 // export default TodoList;
 /** 
  * 衍生出一个放
